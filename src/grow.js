@@ -1,24 +1,23 @@
-/* Contextualização
-As Ilhas Growdev formam um reino independente localizado nos mares do Pacífico. 
-Por ser uma nação recente, sua sociedade é fortemente influenciada pela tecnologia e pela informática.
+/* Contextualização As Ilhas Growdev formam um reino independente localizado nos
+mares do Pacífico. Por ser uma nação recente, sua sociedade é fortemente
+influenciada pela tecnologia e pela informática.
 
-A moeda oficial do reino é a GrowCoin (GC$), que possui as seguintes cédulas disponíveis:
+A moeda oficial do reino é a GrowCoin (GC$), que possui as seguintes cédulas
+disponíveis:
 
-GC$ 50,00
-GC$ 10,00
-GC$ 5,00
-GC$ 1,00
+GC$ 50,00 GC$ 10,00 GC$ 5,00 GC$ 1,00
 
-Um grande banco local está implantando caixas eletrônicos automatizados 
-e contratou você para ajudar no desenvolvimento da lógica responsável pela distribuição correta das cédulas durante os saques. */
+Um grande banco local está implantando caixas eletrônicos automatizados e
+contratou você para ajudar no desenvolvimento da lógica responsável pela
+distribuição correta das cédulas durante os saques. */
 
-/*  Objetivo do Desafio
-Desenvolver um algoritmo em JavaScript capaz de:
+/*  Objetivo do Desafio Desenvolver um algoritmo em JavaScript capaz de:
 
-Receber um valor inteiro de GrowCoins que o cliente deseja sacar;
-Calcular quantas cédulas de cada valor devem ser entregues;
-Garantir que a soma das cédulas corresponda exatamente ao valor solicitado.
+Receber um valor inteiro de GrowCoins que o cliente deseja sacar; Calcular
+quantas cédulas de cada valor devem ser entregues; Garantir que a soma das
+cédulas corresponda exatamente ao valor solicitado.
  */
+
 
 import promptSync from "prompt-sync";
 let prompt = promptSync();
@@ -55,14 +54,16 @@ if (isNaN(valorSaque) || valorSaque <= 0) {
     let quantidadeNotas = Math.floor(
       valorSaque / nota,
     );
-    // Ex: Se o valorSaque for 70 e a nota for 50, quantidadeNotas será 1, pois 50 cabe 1 vez em 70.
+    // Ex: Se o valorSaque for 70 e a nota for 50, quantidadeNotas será 1, pois
+    // 50 cabe 1 vez em 70.
 
     // O que sobra após retirar essas notas? (Resto da divisão)
     valorSaque = valorSaque % nota; // Ex: Continuando o exemplo
     // anterior, após retirar 1 nota de 50, sobra 20 (70 % 50 = 20).
 
-    // Agora o valorSaque é atualizado para o que resta, e o loop continua para a próxima cédula. Assim, ele vai calcular quantas notas de 10 cabem em 20,
-    // depois quantas de 5 cabem no que sobrou, e assim por diante.
+    // Agora o valorSaque é atualizado para o que resta, e o loop continua para
+    // a próxima cédula. Assim, ele vai calcular quantas notas de 10 cabem em
+    // 20, depois quantas de 5 cabem no que sobrou, e assim por diante.
 
     // Exibir a quantidade de notas, se for maior que zero
     if (quantidadeNotas > 0) {

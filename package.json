@@ -6,7 +6,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier-plugin-jsdoc": "^1.8.0"
+  },
   "scripts": {
     "grow": "src/grow.js",
     "crud": "src/crud.js"
