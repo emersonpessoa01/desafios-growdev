@@ -18,7 +18,6 @@ quantas cédulas de cada valor devem ser entregues; Garantir que a soma das
 cédulas corresponda exatamente ao valor solicitado.
  */
 
-
 import promptSync from "prompt-sync";
 let prompt = promptSync();
 
