@@ -83,7 +83,7 @@ function listarVeiculos() {
     console.log("Nenhum veículo cadastrado.");
     return;
   }
-  console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+  console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   console.log(
     "\n--- LISTA DE VEÍCULOS (ORDENADA POR PREÇO)---",
   );
@@ -116,7 +116,7 @@ function filtrarPorMarca() {
     alert("Nenhum veículo desta marca encontrado.");
     return;
   }
-  console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+  console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   console.log(
     `\n--- FILTRO: MARCA ${marcaBusca.toUpperCase()} ---`,
   );
@@ -132,3 +132,32 @@ function filtrarPorMarca() {
   );
 }
 filtrarPorMarca();
+
+//4. Atualizar Veículo
+function atualizarVeiculo() {
+  const idBusca = parseInt(
+    prompt("Digite oID veículo que deseja atualizar: "),
+  );
+  const veiculo = listarVeiculos.find(
+    (veiculo) => veiculo.id === idBusca,
+  );
+  //Verificaçãocaos não exista
+  if (!veiculo) {
+    alert("Veículo não encontrado");
+  }
+
+  const novaCor = prompt(
+    `Cor atual: ${veiculo.cor}. Digite a nova cor (ou deixe em branco para manter): `,
+  );
+  const novoPreco = prompt(
+    `Preço atual: ${veiculo.preco}. Digiteo novo preço (ou deixe em branco para manter): `,
+  );
+
+  if (novaCor) veiculo.cor = novaCor;
+  if (novoPreco) veiculo.preco = novoPreco;
+
+  ordenarPorPreco(); // Reordenar caso o preço tenha mudado
+  alert("Veículo atualizado com sucesso!");
+}
+
+
