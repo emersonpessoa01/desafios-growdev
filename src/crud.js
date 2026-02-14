@@ -113,7 +113,7 @@ function filtrarPorMarca() {
   );
 
   if (filtrados.length === 0) {
-    alert("Nenhum veículo desta marca encontrado.");
+    console.log("Nenhum veículo desta marca encontrado.");
     return;
   }
   console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -136,28 +136,31 @@ filtrarPorMarca();
 //4. Atualizar Veículo
 function atualizarVeiculo() {
   const idBusca = parseInt(
-    prompt("Digite oID veículo que deseja atualizar: "),
+    prompt("Digite o ID veículo que deseja atualizar: "),
   );
-  const veiculo = listarVeiculos.find(
+  const veiculo = listaVeiculos.find(
     (veiculo) => veiculo.id === idBusca,
   );
   //Verificaçãocaos não exista
   if (!veiculo) {
-    alert("Veículo não encontrado");
+    console.log("Veículo não encontrado");
   }
 
   const novaCor = prompt(
     `Cor atual: ${veiculo.cor}. Digite a nova cor (ou deixe em branco para manter): `,
   );
   const novoPreco = prompt(
-    `Preço atual: ${veiculo.preco}. Digiteo novo preço (ou deixe em branco para manter): `,
+    `Preço atual: ${veiculo.preco}. Digite o novo preço (ou deixe em branco para manter): `,
   );
 
   if (novaCor) veiculo.cor = novaCor;
-  if (novoPreco) veiculo.preco = novoPreco;
+  if (novoPreco) veiculo.preco = parseFloat(novoPreco);
 
   ordenarPorPreco(); // Reordenar caso o preço tenha mudado
-  alert("Veículo atualizado com sucesso!");
+  console.log("Veículo atualizado com sucesso!");
+  console.log(`O veículo ${veiculo.modelo} teve sua cor mudada para ${veiculo.cor} e seu preço para ${veiculo.preco}`)
 }
 
+atualizarVeiculo();
 
+//5. Remover Ve´culo
