@@ -141,7 +141,7 @@ function atualizarVeiculo() {
   const veiculo = listaVeiculos.find(
     (veiculo) => veiculo.id === idBusca,
   );
-  //Verificaçãocaos não exista
+  //Verifica caso não exista
   if (!veiculo) {
     console.log("Veículo não encontrado");
   }
@@ -158,9 +158,39 @@ function atualizarVeiculo() {
 
   ordenarPorPreco(); // Reordenar caso o preço tenha mudado
   console.log("Veículo atualizado com sucesso!");
-  console.log(`O veículo ${veiculo.modelo} teve sua cor mudada para ${veiculo.cor} e seu preço para ${veiculo.preco}`)
+  console.log(
+    `O veículo ${veiculo.modelo} teve sua cor mudada para ${veiculo.cor} e seu preço para ${veiculo.preco.toLocaleString(
+      "pt-BR",
+      {
+        minimumFractionDigits: 2,
+      },
+    )}`,
+  );
 }
 
 atualizarVeiculo();
 
-//5. Remover Ve´culo
+//5. Remover Veículo
+function removerVeiculo() {
+  const idBusca = parseInt(
+    prompt("Digite o ID do veículo que deseja remover: "),
+  );
+  const index = listaVeiculos.findIndex(
+    (veiculo) => veiculo.id === idBusca,
+  );
+  if (index === -1) {
+    console.log("Veículo não encontrado.");
+    return;
+  }
+  const confirmacao = prompt(
+    `Tem certeza que deseja remover o ${listaVeiculos[index].modelo}? (s/n): `,
+  ).toLowerCase();
+
+  if (confirmacao === "s") {
+    listaVeiculos.splice(index, 1);
+    console.log(`Veículo ${veiculo.marca} removido com sucesso!`);
+  } else {
+    console.log("Operação cancelada");
+  }
+}
+removerVeiculo();
