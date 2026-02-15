@@ -157,18 +157,21 @@ function atualizarVeiculo() {
     return;
   }
 
-  console.log(
-    `\nEditando: ${veiculo.modelo} (${veiculo.marca})`,
-  );
+  // Desestrutura apenas para ler e mostrar ao usuário
+  const { modelo, marca, cor, preco } = veiculo;
+
+  console.log(`\nEditando: ${modelo} (${marca})`);
+
   const novaCor = prompt(
-    `Nova cor (atual: ${veiculo.cor}) [Vazio p/ manter]: `,
+    `Nova cor (atual: ${cor}) [Vazio p/ manter]: `,
   );
   const novoPreco = prompt(
-    `Novo preço (atual: ${veiculo.preco}) [Vazio p/ manter]: `,
+    `Novo preço (atual: ${preco}) [Vazio p/ manter]: `,
   );
 
-  if (novaCor) veiculo.cor = novaCor;
-  if (novoPreco) veiculo.preco = parseFloat(novoPreco);
+  
+  if (novaCor) veiculo.cor = novaCor; // Altera o objeto real
+  if (novoPreco) veiculo.preco = parseFloat(novoPreco); // Altera o objeto real
 
   ordenarPorPreco();
   console.log("✅ Veículo atualizado!");
@@ -237,7 +240,7 @@ function exibirMenu() {
         rodando = false;
         break;
       default:
-       console.log("❌ OPÇÃO INVÁLIDA.");
+        console.log("❌ OPÇÃO INVÁLIDA.");
     }
   }
 }
