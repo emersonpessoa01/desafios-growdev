@@ -14,6 +14,8 @@ Desenvolvimento do algoritmo de saque para caixas eletrônicos das Ilhas Growdev
 * **Lógica:** Implementação utilizando divisão inteira (`Math.floor`) e operador de resto (`%`) para otimização do saque.
 * **Validação:** Verificação de entradas inválidas ou valores negativos.
 
+![Demonstração do GROW](assets/image/image-grow.png)
+
 ---
 
 ### 🏎️ 2. CRUD de Veículos (src/crud.js)
@@ -26,6 +28,8 @@ Sistema interativo para gerenciamento de frotas (Growdev) com operações comple
 * **Persistência por Referência:** Atualização segura de propriedades de objetos diretamente no array original.
 * **Regra de Negócio:** A lista de veículos é mantida permanentemente ordenada por **preço** (ordem crescente).
 * **Filtros:** Busca inteligente por marca com exibição formatada.
+
+![Demonstração do CRUD](assets/image/image-crud.png)
 
 ---
 
@@ -63,7 +67,7 @@ npm run crud
 ### 📂 Estrutura do Projeto
 
 ```text
-
+├── assets/           # Imagens e recursos visuais
 ├── src/              # Código fonte (Lógica Node.js)
 │   ├── crud.js       # Sistema de gerenciamento de veículos
 │   └── grow.js       # Algoritmo de saque de GrowCoins
