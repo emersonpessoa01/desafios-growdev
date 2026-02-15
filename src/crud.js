@@ -47,9 +47,7 @@ function criarVeiculo() {
   const marca = prompt("Marca: ");
   const ano = parseInt(prompt("Ano: "));
   const cor = prompt("Cor: ");
-  const preco = parseFloat(
-    prompt("Preço (ex: 50000.00): "),
-  );
+  const preco = parseFloat(prompt("Preço (ex: 50000): "));
 
   // Validação rigorosa
   if (
@@ -83,7 +81,7 @@ function criarVeiculo() {
 // 2. Listar Veículos
 function listarVeiculos() {
   if (listaVeiculos.length === 0) {
-    console.log("\n📭 NENHUM VEÍCULO CADASTRADO.");
+    console.log("❌ NENHUM VEÍCULO CADASTRADO.");
     return;
   }
 
@@ -91,11 +89,18 @@ function listarVeiculos() {
     "\n===========================================",
   );
   console.log("--- LISTA DE VEÍCULOS (ORDEM DE PREÇO) ---");
-  listaVeiculos.forEach((v) => {
-    console.log(
-      `ID: ${v.id} | ${v.modelo.padEnd(10)} | ${v.marca.padEnd(10)} | ${v.ano} | ${v.cor.padEnd(8)} | R$ ${v.preco.toFixed(2)}`,
-    );
-  });
+  listaVeiculos.forEach(
+    ({ id, modelo, marca, ano, cor, preco }) => {
+      console.log(
+        `ID: ${id} | ${modelo.padEnd(10)} | ${marca.padEnd(10)} | ${ano} | ${cor.padEnd(8)} | R$ ${preco.toLocaleString(
+          "pt-BR",
+          {
+            minimumFractionDigits: 2,
+          },
+        )}`,
+      );
+    },
+  );
   console.log(
     "===========================================\n",
   );
@@ -104,15 +109,16 @@ function listarVeiculos() {
 // 3. Filtrar por Marca
 function filtrarPorMarca() {
   if (listaVeiculos.length === 0) {
-    console.log("\nLista vazia.");
+    console.log("\nLISTA VAZIA.");
     return;
   }
 
   const busca = prompt(
     "Digite a marca desejada: ",
   ).toLowerCase();
+
   const filtrados = listaVeiculos.filter(
-    (v) => v.marca.toLowerCase() === busca,
+    ({ marca }) => marca.toLowerCase() === busca,
   );
 
   if (filtrados.length === 0) {
@@ -125,19 +131,26 @@ function filtrarPorMarca() {
   console.log(
     `\n--- RESULTADOS PARA: ${busca.toUpperCase()} ---`,
   );
-  filtrados.forEach((v) => {
+  filtrados.forEach(({ id, modelo, marca, cor, preco }) => {
     console.log(
-      `ID: ${v.id} | Modelo: ${v.modelo} | Cor: ${v.cor} | Preço: R$ ${v.preco.toFixed(2)}`,
+      `ID: ${id} | Modelo: ${modelo} | Marca: ${marca} | Cor: ${cor} | Preço: R$ ${preco.toLocaleString(
+        "pt-BR",
+        {
+          minimumFractionDigits: 2,
+        },
+      )}`,
     );
   });
 }
 
 // 4. Atualizar Veículo
 function atualizarVeiculo() {
-  const id = parseInt(
+  const idVeiculo = parseInt(
     prompt("Digite o ID do veículo para atualizar: "),
   );
-  const veiculo = listaVeiculos.find((v) => v.id === id);
+  const veiculo = listaVeiculos.find(
+    ({ id }) => id === idVeiculo,
+  );
 
   if (!veiculo) {
     console.log("❌ Veículo não encontrado.");
@@ -224,7 +237,7 @@ function exibirMenu() {
         rodando = false;
         break;
       default:
-        console.log("⚠️ Opção inválida!");
+       console.log("❌ OPÇÃO INVÁLIDA.");
     }
   }
 }
