@@ -34,14 +34,14 @@ let proximoId = 1;
 // --- Funções Auxiliares ---
 
 // Regra: Sempre manter a lista principal ordenada por preço
-function ordenarPorPreco() {
+const ordenarPorPreco = () => {
   listaVeiculos.sort((a, b) => a.preco - b.preco);
-}
+};
 
 // --- Funcionalidades do CRUD ---
 
 // 1. Criar Veículo
-function criarVeiculo() {
+const criarVeiculo = () => {
   console.log("\n--- CADASTRO DE NOVO VEÍCULO ---");
   const modelo = prompt("Modelo: ");
   const marca = prompt("Marca: ");
@@ -76,10 +76,10 @@ function criarVeiculo() {
   listaVeiculos.push(veiculo);
   ordenarPorPreco();
   console.log(`✅ ${modelo} adicionado com sucesso!`);
-}
+};
 
 // 2. Listar Veículos
-function listarVeiculos() {
+const listarVeiculos = () => {
   if (listaVeiculos.length === 0) {
     console.log("❌ NENHUM VEÍCULO CADASTRADO.");
     return;
@@ -104,10 +104,10 @@ function listarVeiculos() {
   console.log(
     "===========================================\n",
   );
-}
+};
 
 // 3. Filtrar por Marca
-function filtrarPorMarca() {
+const filtrarPorMarca = () => {
   if (listaVeiculos.length === 0) {
     console.log("\nLISTA VAZIA.");
     return;
@@ -141,10 +141,10 @@ function filtrarPorMarca() {
       )}`,
     );
   });
-}
+};
 
 // 4. Atualizar Veículo
-function atualizarVeiculo() {
+const atualizarVeiculo = () => {
   const idVeiculo = parseInt(
     prompt("Digite o ID do veículo para atualizar: "),
   );
@@ -169,16 +169,15 @@ function atualizarVeiculo() {
     `Novo preço (atual: ${preco}) [Vazio p/ manter]: `,
   );
 
-  
   if (novaCor) veiculo.cor = novaCor; // Altera o objeto real
   if (novoPreco) veiculo.preco = parseFloat(novoPreco); // Altera o objeto real
 
   ordenarPorPreco();
   console.log("✅ Veículo atualizado!");
-}
+};
 
 // 5. Remover Veículo
-function removerVeiculo() {
+const removerVeiculo = () => {
   const id = parseInt(prompt("Digite o ID para remover: "));
   const index = listaVeiculos.findIndex((v) => v.id === id);
 
@@ -199,10 +198,10 @@ function removerVeiculo() {
   } else {
     console.log("Ação cancelada.");
   }
-}
+};
 
 // --- Menu de Controle ---
-function exibirMenu() {
+const exibirMenu = () => {
   let rodando = true;
   while (rodando) {
     console.log(`
@@ -243,6 +242,6 @@ function exibirMenu() {
         console.log("❌ OPÇÃO INVÁLIDA.");
     }
   }
-}
+};
 
 exibirMenu();
