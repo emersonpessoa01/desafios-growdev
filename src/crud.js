@@ -26,30 +26,32 @@ Apenas os campos cor e preço podem ser atualizados.
 O sistema deve sempre retornar ao menu inicial após a execução de uma ação. */
 
 import PromptSync from "prompt-sync";
-let prompt = PromptSync();
+const prompt = PromptSync();
 
 let listaVeiculos = [];
-let proximoId = 1; // Variável para gerar IDs únicos
+let proximoId = 1;
 
 // --- Funções Auxiliares ---
 
-/* Função para ordenar listar por preço (Regra: A lista deve estar semmpre ordendada por preço) */
+// Regra: Sempre manter a lista principal ordenada por preço
 function ordenarPorPreco() {
   listaVeiculos.sort((a, b) => a.preco - b.preco);
 }
 
-//-- Funcionalidade de CRUD ---
+// --- Funcionalidades do CRUD ---
 
-//1.Criar um Veículo
+// 1. Criar Veículo
 function criarVeiculo() {
-  let modelo, marca, ano, cor, preco;
-  modelo = prompt("Digite o modelo do veículo: ");
-  marca = prompt("Digite a marca do veículo: ");
-  ano = parseInt(prompt("Digite o ano do veículo: "));
-  cor = prompt("Digite a cor do veículo: ");
-  preco = parseFloat(prompt("Digite o preço do veículo: "));
+  console.log("\n--- CADASTRO DE NOVO VEÍCULO ---");
+  const modelo = prompt("Modelo: ");
+  const marca = prompt("Marca: ");
+  const ano = parseInt(prompt("Ano: "));
+  const cor = prompt("Cor: ");
+  const preco = parseFloat(
+    prompt("Preço (ex: 50000.00): "),
+  );
 
-  // Validação básica dos dados
+  // Validação rigorosa
   if (
     !modelo ||
     !marca ||
@@ -58,12 +60,13 @@ function criarVeiculo() {
     isNaN(preco)
   ) {
     console.log(
-      "Dados inválidos. Por favor, tente novamente.",
+      "❌ Erro: Dados inválidos. Certifique-se de usar números para ano e preço.",
     );
     return;
   }
 
-  const novoVeiculo = {
+  // Criando o objeto com nomes padronizados
+  const veiculo = {
     id: proximoId++,
     modelo,
     marca,
@@ -72,125 +75,158 @@ function criarVeiculo() {
     preco,
   };
 
-  listaVeiculos.push(novoVeiculo);
+  listaVeiculos.push(veiculo);
   ordenarPorPreco();
+  console.log(`✅ ${modelo} adicionado com sucesso!`);
 }
-criarVeiculo();
 
-//2. Listar tosdos os Veículos
+// 2. Listar Veículos
 function listarVeiculos() {
   if (listaVeiculos.length === 0) {
-    console.log("Nenhum veículo cadastrado.");
+    console.log("\n📭 NENHUM VEÍCULO CADASTRADO.");
     return;
   }
-  console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+
   console.log(
-    "\n--- LISTA DE VEÍCULOS (ORDENADA POR PREÇO)---",
+    "\n===========================================",
   );
-  listaVeiculos.forEach(
-    ({ id, modelo, marca, ano, cor, preco }) => {
-      console.log(
-        `ID: ${id} | Modelo: ${modelo} | Marca: ${marca} | Ano: ${ano} | Cor: ${cor} | Preço: R$ ${preco.toLocaleString(
-          "pt-BR",
-          {
-            minimumFractionDigits: 2,
-          },
-        )}`,
-      );
-    },
+  console.log("--- LISTA DE VEÍCULOS (ORDEM DE PREÇO) ---");
+  listaVeiculos.forEach((v) => {
+    console.log(
+      `ID: ${v.id} | ${v.modelo.padEnd(10)} | ${v.marca.padEnd(10)} | ${v.ano} | ${v.cor.padEnd(8)} | R$ ${v.preco.toFixed(2)}`,
+    );
+  });
+  console.log(
+    "===========================================\n",
   );
 }
 
-listarVeiculos();
-
-//3. Filtrar por Marca
+// 3. Filtrar por Marca
 function filtrarPorMarca() {
-  const marcaBusca = prompt(
-    "Informe a marca para filtrar: ",
+  if (listaVeiculos.length === 0) {
+    console.log("\nLista vazia.");
+    return;
+  }
+
+  const busca = prompt(
+    "Digite a marca desejada: ",
   ).toLowerCase();
   const filtrados = listaVeiculos.filter(
-    (veiculo) => veiculo.marca.toLowerCase() === marcaBusca,
+    (v) => v.marca.toLowerCase() === busca,
   );
 
   if (filtrados.length === 0) {
-    console.log("Nenhum veículo desta marca encontrado.");
+    console.log(
+      `\nNenhum veículo da marca "${busca}" encontrado.`,
+    );
     return;
   }
-  console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-  console.log(
-    `\n--- FILTRO: MARCA ${marcaBusca.toUpperCase()} ---`,
-  );
-  filtrados.forEach((filtrado) =>
-    console.log(
-      `ID: ${filtrado.id} | Modelo: ${filtrado.modelo} | Cor: ${filtrado.cor} | Preço: R$ ${filtrado.preco.toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits: 2,
-        },
-      )}`,
-    ),
-  );
-}
-filtrarPorMarca();
 
-//4. Atualizar Veículo
+  console.log(
+    `\n--- RESULTADOS PARA: ${busca.toUpperCase()} ---`,
+  );
+  filtrados.forEach((v) => {
+    console.log(
+      `ID: ${v.id} | Modelo: ${v.modelo} | Cor: ${v.cor} | Preço: R$ ${v.preco.toFixed(2)}`,
+    );
+  });
+}
+
+// 4. Atualizar Veículo
 function atualizarVeiculo() {
-  const idBusca = parseInt(
-    prompt("Digite o ID veículo que deseja atualizar: "),
+  const id = parseInt(
+    prompt("Digite o ID do veículo para atualizar: "),
   );
-  const veiculo = listaVeiculos.find(
-    (veiculo) => veiculo.id === idBusca,
-  );
-  //Verifica caso não exista
+  const veiculo = listaVeiculos.find((v) => v.id === id);
+
   if (!veiculo) {
-    console.log("Veículo não encontrado");
+    console.log("❌ Veículo não encontrado.");
+    return;
   }
 
+  console.log(
+    `\nEditando: ${veiculo.modelo} (${veiculo.marca})`,
+  );
   const novaCor = prompt(
-    `Cor atual: ${veiculo.cor}. Digite a nova cor (ou deixe em branco para manter): `,
+    `Nova cor (atual: ${veiculo.cor}) [Vazio p/ manter]: `,
   );
   const novoPreco = prompt(
-    `Preço atual: ${veiculo.preco}. Digite o novo preço (ou deixe em branco para manter): `,
+    `Novo preço (atual: ${veiculo.preco}) [Vazio p/ manter]: `,
   );
 
   if (novaCor) veiculo.cor = novaCor;
   if (novoPreco) veiculo.preco = parseFloat(novoPreco);
 
-  ordenarPorPreco(); // Reordenar caso o preço tenha mudado
-  console.log("Veículo atualizado com sucesso!");
-  console.log(
-    `O veículo ${veiculo.modelo} teve sua cor mudada para ${veiculo.cor} e seu preço para ${veiculo.preco.toLocaleString(
-      "pt-BR",
-      {
-        minimumFractionDigits: 2,
-      },
-    )}`,
-  );
+  ordenarPorPreco();
+  console.log("✅ Veículo atualizado!");
 }
 
-atualizarVeiculo();
-
-//5. Remover Veículo
+// 5. Remover Veículo
 function removerVeiculo() {
-  const idBusca = parseInt(
-    prompt("Digite o ID do veículo que deseja remover: "),
-  );
-  const index = listaVeiculos.findIndex(
-    (veiculo) => veiculo.id === idBusca,
-  );
+  const id = parseInt(prompt("Digite o ID para remover: "));
+  const index = listaVeiculos.findIndex((v) => v.id === id);
+
   if (index === -1) {
-    console.log("Veículo não encontrado.");
+    console.log("❌ ID não encontrado.");
     return;
   }
+
   const confirmacao = prompt(
     `Tem certeza que deseja remover o ${listaVeiculos[index].modelo}? (s/n): `,
   ).toLowerCase();
 
   if (confirmacao === "s") {
-    listaVeiculos.splice(index, 1);
-    console.log(`Veículo ${veiculo.marca} removido com sucesso!`);
+    const removido = listaVeiculos.splice(index, 1);
+    console.log(
+      `✅ ${removido[0].modelo} removido da frota.`,
+    );
   } else {
-    console.log("Operação cancelada");
+    console.log("Ação cancelada.");
   }
 }
-removerVeiculo();
+
+// --- Menu de Controle ---
+function exibirMenu() {
+  let rodando = true;
+  while (rodando) {
+    console.log(`
+    ____________________________
+    |   MENU VESTE TECH        |
+    | 1. Cadastrar Veículo     |
+    | 2. Listar Veículos       |
+    | 3. Filtrar por Marca     |
+    | 4. Atualizar (Cor/Preço) |
+    | 5. Remover Veículo       |
+    | 6. Sair                  |
+    |__________________________|
+    `);
+
+    const opcao = prompt("Escolha uma opção: ");
+
+    switch (opcao) {
+      case "1":
+        criarVeiculo();
+        break;
+      case "2":
+        listarVeiculos();
+        break;
+      case "3":
+        filtrarPorMarca();
+        break;
+      case "4":
+        atualizarVeiculo();
+        break;
+      case "5":
+        removerVeiculo();
+        break;
+      case "6":
+        console.log("Encerrando sistema...");
+        rodando = false;
+        break;
+      default:
+        console.log("⚠️ Opção inválida!");
+    }
+  }
+}
+
+exibirMenu();
