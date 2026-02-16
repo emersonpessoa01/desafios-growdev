@@ -97,7 +97,7 @@ npm run crud
 
 ```
 
-- Instrutora: @leticialeal
+### Instrutora: @leticialeal
 
 ✒️ Desenvolvido por Emerson Pessoa <br>
 [Linkedin](https://www.linkedin.com/in/emersonpessoa01/) — Desenvolvedor em constante evolução 🚀
