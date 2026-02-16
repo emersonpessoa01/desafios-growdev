@@ -86,13 +86,13 @@ const listarVeiculos = () => {
   }
 
   console.log(
-    "\n===========================================",
+    "\n==================================================================================",
   );
   console.log("--- LISTA DE VEÍCULOS (ORDEM DE PREÇO) ---");
   listaVeiculos.forEach(
     ({ id, modelo, marca, ano, cor, preco }) => {
       console.log(
-        `ID: ${id} | ${modelo.padEnd(10)} | ${marca.padEnd(10)} | ${ano} | ${cor.padEnd(8)} | R$ ${preco.toLocaleString(
+        `ID: ${id} | Modelo: ${modelo} | Marca: ${marca} | Ano: ${ano} | Cor: ${cor} | Preço: R$ ${preco.toLocaleString(
           "pt-BR",
           {
             minimumFractionDigits: 2,
@@ -102,7 +102,7 @@ const listarVeiculos = () => {
     },
   );
   console.log(
-    "===========================================\n",
+    "==================================================================================\n",
   );
 };
 
@@ -141,6 +141,9 @@ const filtrarPorMarca = () => {
       )}`,
     );
   });
+   console.log(
+    "=========================================================================\n",
+  );
 };
 
 // 4. Atualizar Veículo
@@ -153,7 +156,7 @@ const atualizarVeiculo = () => {
   );
 
   if (!veiculo) {
-    console.log("❌ Veículo não encontrado.");
+    console.log("❌ NENHUM VEÍCULO ENCONTRADO.");
     return;
   }
 
@@ -200,20 +203,21 @@ const removerVeiculo = () => {
   }
 };
 
-// --- Menu de Controle ---
-const exibirMenu = () => {
+// --- Inicialização Automática do exibirMenu ---
+(() => {
   let rodando = true;
   while (rodando) {
     console.log(`
-    ____________________________
-    |   MENU VESTE TECH        |
-    | 1. Cadastrar Veículo     |
-    | 2. Listar Veículos       |
-    | 3. Filtrar por Marca     |
-    | 4. Atualizar (Cor/Preço) |
-    | 5. Remover Veículo       |
-    | 6. Sair                  |
-    |__________________________|
+    _________________________________
+    |   -=-=- MENU VESTE TECH -=-=- |
+    |                               |
+    |   1. Cadastrar Veículo        |
+    |   2. Listar Veículos          |
+    |   3. Filtrar por Marca        |
+    |   4. Atualizar (Cor/Preço)    |
+    |   5. Remover Veículo          |
+    |   6. Sair                     |
+    |_______________________________|
     `);
 
     const opcao = prompt("Escolha uma opção: ");
@@ -242,6 +246,4 @@ const exibirMenu = () => {
         console.log("❌ OPÇÃO INVÁLIDA.");
     }
   }
-};
-
-exibirMenu();
+})();
