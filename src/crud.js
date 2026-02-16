@@ -92,7 +92,7 @@ const listarVeiculos = () => {
   listaVeiculos.forEach(
     ({ id, modelo, marca, ano, cor, preco }) => {
       console.log(
-        `ID: ${id} | Modelo: ${modelo} | Marca: ${marca} | Ano: ${ano} | Cor: ${cor} | Preço: R$ ${preco.toLocaleString(
+        `ID: ${id} | Modelo: ${modelo.toUpperCase()} | Marca: ${marca.toUpperCase()} | Ano: ${ano} | Cor: ${cor.toUpperCase()} | Preço: R$ ${preco.toLocaleString(
           "pt-BR",
           {
             minimumFractionDigits: 2,
@@ -133,7 +133,7 @@ const filtrarPorMarca = () => {
   );
   filtrados.forEach(({ id, modelo, marca, cor, preco }) => {
     console.log(
-      `ID: ${id} | Modelo: ${modelo} | Marca: ${marca} | Cor: ${cor} | Preço: R$ ${preco.toLocaleString(
+      `ID: ${id} | Modelo: ${modelo.toUpperCase()} | Marca: ${marca.toUpperCase()} | Cor: ${cor.toUpperCase()} | Preço: R$ ${preco.toLocaleString(
         "pt-BR",
         {
           minimumFractionDigits: 2,
@@ -141,7 +141,7 @@ const filtrarPorMarca = () => {
       )}`,
     );
   });
-   console.log(
+  console.log(
     "=========================================================================\n",
   );
 };
@@ -165,6 +165,10 @@ const atualizarVeiculo = () => {
 
   console.log(`\nEditando: ${modelo} (${marca})`);
 
+  const novaMarca = prompt(
+    `Nova marca (atual: ${marca}) [Vazio p/manter]: `,
+  );
+
   const novaCor = prompt(
     `Nova cor (atual: ${cor}) [Vazio p/ manter]: `,
   );
@@ -172,7 +176,8 @@ const atualizarVeiculo = () => {
     `Novo preço (atual: ${preco}) [Vazio p/ manter]: `,
   );
 
-  if (novaCor) veiculo.cor = novaCor; // Altera o objeto real
+  if (novaMarca) veiculo.marca = novaMarca; // Altera o objeto real
+  if (novaCor) veiculo.cor = novaCor;
   if (novoPreco) veiculo.preco = parseFloat(novoPreco); // Altera o objeto real
 
   ordenarPorPreco();
