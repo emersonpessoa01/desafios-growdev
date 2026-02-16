@@ -42,40 +42,48 @@ const ordenarPorPreco = () => {
 
 // 1. Criar Veículo
 const criarVeiculo = () => {
-  console.log("\n--- CADASTRO DE NOVO VEÍCULO ---");
-  const modelo = prompt("Modelo: ");
-  const marca = prompt("Marca: ");
-  const ano = parseInt(prompt("Ano: "));
-  const cor = prompt("Cor: ");
-  const preco = parseFloat(prompt("Preço (ex: 50000): "));
+  let continuar = "s";
 
-  // Validação rigorosa
-  if (
-    !modelo ||
-    !marca ||
-    isNaN(ano) ||
-    !cor ||
-    isNaN(preco)
-  ) {
-    console.log(
-      "❌ Erro: Dados inválidos. Certifique-se de usar números para ano e preço.",
-    );
-    return;
-  }
+  do {
+    console.log("\n--- CADASTRO DE NOVO VEÍCULO ---");
+    const modelo = prompt("Modelo: ");
+    const marca = prompt("Marca: ");
+    const ano = parseInt(prompt("Ano: "));
+    const cor = prompt("Cor: ");
+    const preco = parseFloat(prompt("Preço (ex: 50000): "));
 
-  // Criando o objeto com nomes padronizados
-  const veiculo = {
-    id: proximoId++,
-    modelo,
-    marca,
-    ano,
-    cor,
-    preco,
-  };
+    if (
+      !modelo ||
+      !marca ||
+      isNaN(ano) ||
+      !cor ||
+      isNaN(preco)
+    ) {
+      console.log(
+        "❌ Erro: Dados inválidos. Operação cancelada para este veículo.",
+      );
+    } else {
+      const veiculo = {
+        id: proximoId++,
+        modelo,
+        marca,
+        ano,
+        cor,
+        preco,
+      };
 
-  listaVeiculos.push(veiculo);
+      listaVeiculos.push(veiculo);
+      console.log(`✅ ${modelo} adicionado à lista!`);
+    }
+
+    continuar = prompt(
+      "\nDeseja cadastrar outro veículo? (s/n): ",
+    ).toLowerCase();
+  } while (continuar === "s");
+
+  // Ordena apenas uma vez ao final de todos os cadastros para ganhar performance
   ordenarPorPreco();
-  console.log(`✅ ${modelo} adicionado com sucesso!`);
+  console.log("\n--- CADASTRO FINALIZADO ---");
 };
 
 // 2. Listar Veículos
