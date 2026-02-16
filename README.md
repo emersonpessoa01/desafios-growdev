@@ -1,3 +1,17 @@
+## 🔗 Links Úteis e Referências
+
+<div style="display: flex; gap: 40px;">
+  <a href="https://www.plataforma.growdev.com.br/course/codai-2-0">
+    <img src="./assets/image/codai.png" alt="Logo Growdev" title="Trilha Codaí 2.0" width="180">
+  </a>
+
+  <a href="https://growdev.com.br/vestetech/">
+    <img src="./assets/image/logo-branco.png" alt="Logo Veste Tech" title="Conheça a Veste Tech" width="180">
+  </a>
+</div>
+
+
+
 ## 🚀 Desafios Growdev: Lógica e CRUD com JavaScript
 
 Este repositório contém as soluções desenvolvidas para os desafios técnicos propostos pela Growdev, focando em lógica de programação, manipulação de arrays e estruturação de aplicações modernas em Node.js (ESM).
