@@ -212,7 +212,7 @@ const removerVeiculo = () => {
       `✅ ${removido[0].modelo} removido da frota.`,
     );
   } else {
-    console.log("Ação cancelada.");
+    console.log("\n ✅ Ação cancelada.");
   }
 };
 
