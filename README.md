@@ -1,16 +1,14 @@
 ## 🔗 Links Úteis e Referências
 
 <div style="display: flex; gap: 40px;">
-  <a href="https://www.plataforma.growdev.com.br/course/codai-2-0">
+  <a href="https://www.plataforma.growdev.com.br/course/codai-2-0" target="_blank"  rel="noopener noreferrer nofollow">
     <img src="./assets/image/codai.png" alt="Logo Growdev" title="Trilha Codaí 2.0" width="180">
   </a>
 
-  <a href="https://growdev.com.br/vestetech/">
+  <a href="https://growdev.com.br/vestetech/" target="_blank" rel="noopener noreferrer nofollow">
     <img src="./assets/image/logo-branco.png" alt="Logo Veste Tech" title="Conheça a Veste Tech" width="180">
   </a>
 </div>
-
-
 
 ## 🚀 Desafios Growdev: Lógica e CRUD com JavaScript
 
@@ -21,12 +19,14 @@ Este repositório contém as soluções desenvolvidas para os desafios técnicos
 ### 🏦 1. Sistema de Caixa Eletrônico (src/grow.js)
 
 #### Contextualização
+
 Desenvolvimento do algoritmo de saque para caixas eletrônicos das Ilhas Growdev (Moeda Oficial: **GrowCoin GC$**). O objetivo é garantir a entrega do menor número de cédulas possível, priorizando as de maior valor.
 
 #### Funcionalidades
-* **Cédulas Disponíveis:** GC$ 50,00, GC$ 10,00, GC$ 5,00 e GC$ 1,00.
-* **Lógica:** Implementação utilizando divisão inteira (`Math.floor`) e operador de resto (`%`) para otimização do saque.
-* **Validação:** Verificação de entradas inválidas ou valores negativos.
+
+- **Cédulas Disponíveis:** GC$ 50,00, GC$ 10,00, GC$ 5,00 e GC$ 1,00.
+- **Lógica:** Implementação utilizando divisão inteira (`Math.floor`) e operador de resto (`%`) para otimização do saque.
+- **Validação:** Verificação de entradas inválidas ou valores negativos.
 
 ![Demonstração do GROW](assets/image/image-grow.png)
 
@@ -35,13 +35,15 @@ Desenvolvimento do algoritmo de saque para caixas eletrônicos das Ilhas Growdev
 ### 🏎️ 2. CRUD de Veículos (src/crud.js)
 
 ### Contextualização
+
 Sistema interativo para gerenciamento de frotas (Growdev) com operações completas de Create, Read, Update e Delete via terminal.
 
 #### Diferenciais Técnicos
-* **Modern JavaScript:** Uso extensivo de *Arrow Functions* e *Destructuring* de objetos.
-* **Persistência por Referência:** Atualização segura de propriedades de objetos diretamente no array original.
-* **Regra de Negócio:** A lista de veículos é mantida permanentemente ordenada por **preço** (ordem crescente).
-* **Filtros:** Busca inteligente por marca com exibição formatada.
+
+- **Modern JavaScript:** Uso extensivo de _Arrow Functions_ e _Destructuring_ de objetos.
+- **Persistência por Referência:** Atualização segura de propriedades de objetos diretamente no array original.
+- **Regra de Negócio:** A lista de veículos é mantida permanentemente ordenada por **preço** (ordem crescente).
+- **Filtros:** Busca inteligente por marca com exibição formatada.
 
 ![Demonstração do CRUD](assets/image/image-crud.png)
 
@@ -52,14 +54,17 @@ Sistema interativo para gerenciamento de frotas (Growdev) com operações comple
 O projeto foi estruturado utilizando **Node.js** com suporte a módulos (ESM).
 
 #### Dependências
-* `prompt-sync (^4.2.0)`: Para captura de dados via terminal.
+
+- `prompt-sync (^4.2.0)`: Para captura de dados via terminal.
 
 #### Ferramentas de Desenvolvimento (Linting & Style)
+
 O código é padronizado utilizando o **Prettier** com as seguintes regras definidas no `.prettierrc`:
-* **Plugins:** `prettier-plugin-jsdoc` para documentação profissional.
-* **Print Width:** 60 (otimizado para leitura).
-* **Quotes:** Double quotes (aspas duplas).
-* **Trailing Comma:** All (vírgulas finais em tudo).
+
+- **Plugins:** `prettier-plugin-jsdoc` para documentação profissional.
+- **Print Width:** 60 (otimizado para leitura).
+- **Quotes:** Double quotes (aspas duplas).
+- **Trailing Comma:** All (vírgulas finais em tudo).
 
 ---
 
