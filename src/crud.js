@@ -26,7 +26,9 @@ Apenas os campos cor e preço podem ser atualizados.
 O sistema deve sempre retornar ao menu inicial após a execução de uma ação. */
 
 import PromptSync from "prompt-sync";
+import fs from "fs"; //Módulo para manipular arquivos
 const prompt = PromptSync();
+const CAMINHO_ARQUIVO = "./src/veiculos.json";
 
 let listaVeiculos = [];
 let proximoId = 1;
@@ -44,35 +46,70 @@ const pausar = () => {
 };
 
 // Função seeding - Popula array automaticamente
-const gerarDadosIniciais = () => {
-  const seeds = [
-    {
-      id: proximoId++,
-      modelo: "Civic",
-      marca: "Honda",
-      ano: 2022,
-      cor: "Preto",
-      preco: 12000,
-    },
-    {
-      id: proximoId++,
-      modelo: "Gol",
-      marca: "VW",
-      ano: 2015,
-      cor: "Branco",
-      preco: 35000,
-    },
-    {
-      id: proximoId++,
-      modelo: "Onix",
-      marca: "Chevrolet",
-      ano: 2020,
-      cor: "Prata",
-      preco: 65000,
-    },
-  ];
-  listaVeiculos.push(...seeds);
-  ordenarPorPreco();
+// const gerarDadosIniciais = () => {
+//   const seeds = [
+//     {
+//       id: proximoId++,
+//       modelo: "Civic",
+//       marca: "Honda",
+//       ano: 2022,
+//       cor: "Preto",
+//       preco: 12000,
+//     },
+//     {
+//       id: proximoId++,
+//       modelo: "Gol",
+//       marca: "VW",
+//       ano: 2015,
+//       cor: "Branco",
+//       preco: 35000,
+//     },
+//     {
+//       id: proximoId++,
+//       modelo: "Onix",
+//       marca: "Chevrolet",
+//       ano: 2020,
+//       cor: "Prata",
+//       preco: 65000,
+//     },
+//   ];
+//   listaVeiculos.push(...seeds);
+//   ordenarPorPreco();
+// };
+
+// Salva a lista atual no arquivo JSON
+const salvarDados = () => {
+  try {
+    fs.writeFileSync(
+      CAMINHO_ARQUIVO,
+      JSON.stringify(listaVeiculos, null, 2),
+    );
+  } catch (error) {
+    console.log("\n❌ Erro ao salvar dados", error);
+  }
+};
+
+// Carrega os dados do arquivo ao iniciar
+const carregarDados = () => {
+  try {
+    if (fs.existsSync(CAMINHO_ARQUIVO)) {
+      const conteudo = fs.readFileSync(
+        CAMINHO_ARQUIVO,
+        "utf-8",
+      );
+      listaVeiculos = JSON.parse(conteudo);
+
+      // Atualiza o proximoId para não repetir IDs já existentes
+      if (listaVeiculos.length > 0) {
+        proximoId =
+          Math.max(...listaVeiculos.map((v) => v.id)) + 1;
+      }
+    }
+  } catch (error) {
+    console.log(
+      "⚠️  Arquivo de dados não encontrado. Iniciando lista vazia.",
+    );
+  }
 };
 
 // --- Funcionalidades do CRUD ---
@@ -146,6 +183,7 @@ const criarVeiculo = () => {
 
   // Ordena apenas uma vez ao final de todos os cadastros para ganhar performance
   ordenarPorPreco();
+  salvarDados();
   console.log("\n--- CADASTRO FINALIZADO ---");
 };
 
@@ -184,9 +222,7 @@ const filtrarPorMarca = () => {
     console.log("\n❌ LISTA VAZIA.");
     return;
   }
-  console.log(
-    "=========================================================================\n",
-  );
+
   const busca = prompt(
     "Digite a marca desejada: ",
   ).toLowerCase();
@@ -197,7 +233,7 @@ const filtrarPorMarca = () => {
 
   if (filtrados.length === 0) {
     console.log(
-      `\nNenhum veículo da marca "${busca}" encontrado.`,
+      `\n❌ Nenhum veículo da marca "${busca}" encontrado.`,
     );
     return;
   }
@@ -215,6 +251,9 @@ const filtrarPorMarca = () => {
       )}`,
     );
   });
+  console.log(
+    "=========================================================================\n",
+  );
   pausar();
 };
 
@@ -253,6 +292,7 @@ const atualizarVeiculo = () => {
   if (novoPreco) veiculo.preco = parseFloat(novoPreco); // Altera o objeto real
 
   ordenarPorPreco();
+  salvarDados();
   console.log("✅ Veículo atualizado!");
   pausar();
 };
@@ -279,12 +319,15 @@ const removerVeiculo = () => {
   } else {
     console.log("\n ✅ Ação cancelada.");
   }
+  salvarDados();
 };
 
 // --- Inicialização Automática do exibirMenu ---
 (() => {
-  gerarDadosIniciais();
+  // gerarDadosIniciais();
+  carregarDados();
   let rodando = true;
+
   while (rodando) {
     console.log(`
     _________________________________
