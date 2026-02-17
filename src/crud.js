@@ -43,6 +43,38 @@ const pausar = () => {
   prompt("\nPressione ENTER para continuar...");
 };
 
+// Função seeding - Popula array automaticamente
+const gerarDadosIniciais = () => {
+  const seeds = [
+    {
+      id: proximoId++,
+      modelo: "Civic",
+      marca: "Honda",
+      ano: 2022,
+      cor: "Preto",
+      preco: 12000,
+    },
+    {
+      id: proximoId++,
+      modelo: "Gol",
+      marca: "VW",
+      ano: 2015,
+      cor: "Branco",
+      preco: 35000,
+    },
+    {
+      id: proximoId++,
+      modelo: "Onix",
+      marca: "Chevrolet",
+      ano: 2020,
+      cor: "Prata",
+      preco: 65000,
+    },
+  ];
+  listaVeiculos.push(...seeds);
+  ordenarPorPreco();
+};
+
 // --- Funcionalidades do CRUD ---
 
 // 1. Criar Veículo
@@ -251,6 +283,7 @@ const removerVeiculo = () => {
 
 // --- Inicialização Automática do exibirMenu ---
 (() => {
+  gerarDadosIniciais();
   let rodando = true;
   while (rodando) {
     console.log(`
