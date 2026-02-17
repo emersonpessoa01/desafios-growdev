@@ -10,8 +10,8 @@
     "prettier-plugin-jsdoc": "^1.8.0"
   },
   "scripts": {
-    "grow": "src/grow.js",
-    "crud": "src/crud.js"
+    "grow": "node src/grow.js",
+    "crud": "node src/crud.js"
   },
   "keywords": [],
   "author": "",

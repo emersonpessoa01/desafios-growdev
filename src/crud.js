@@ -38,6 +38,11 @@ const ordenarPorPreco = () => {
   listaVeiculos.sort((a, b) => a.preco - b.preco);
 };
 
+// Obriga o usuário a ler antes de prosseguir a fim visualizar as informações no console.
+const pausar = () => {
+  prompt("\nPressione ENTER para continuar...");
+};
+
 // --- Funcionalidades do CRUD ---
 
 // 1. Criar Veículo
@@ -51,6 +56,32 @@ const criarVeiculo = () => {
     const ano = parseInt(prompt("Ano: "));
     const cor = prompt("Cor: ");
     const preco = parseFloat(prompt("Preço (ex: 50000): "));
+
+    const anoAtual = new Date().getFullYear();
+    const anoString = ano.toString();
+
+    // Validação de segurança:
+    // 1. Deve ser um número (isNaN)
+    // 2. 1886: Ano da patente do primeiro automóvel moderno (Benz Patent-Motorwagen)
+    // 3. anoAtual + 1: Permite modelos de "ano/modelo" lançados antecipadamente
+    // 4. length !== 4: Garante que o usuário não digite anos abreviados (ex: 25 em vez de 2025)
+    if (
+      isNaN(ano) ||
+      ano < 1886 ||
+      ano > anoAtual + 1 ||
+      anoString.length !== 4
+    ) {
+      console.log(
+        `❌ Erro: Digite um ano válido com 4 dígitos (entre 1886 e ${anoAtual + 1}).`,
+      );
+      return;
+    }
+    if (isNaN(preco) || preco <= 0) {
+      console.log(
+        "❌ Erro: O preço deve ser maior que zero.",
+      );
+      return;
+    }
 
     if (
       !modelo ||
@@ -109,6 +140,7 @@ const listarVeiculos = () => {
       );
     },
   );
+  pausar();
   console.log(
     "==================================================================================\n",
   );
@@ -117,10 +149,12 @@ const listarVeiculos = () => {
 // 3. Filtrar por Marca
 const filtrarPorMarca = () => {
   if (listaVeiculos.length === 0) {
-    console.log("\nLISTA VAZIA.");
+    console.log("\n❌ LISTA VAZIA.");
     return;
   }
-
+  console.log(
+    "=========================================================================\n",
+  );
   const busca = prompt(
     "Digite a marca desejada: ",
   ).toLowerCase();
@@ -149,9 +183,7 @@ const filtrarPorMarca = () => {
       )}`,
     );
   });
-  console.log(
-    "=========================================================================\n",
-  );
+  pausar();
 };
 
 // 4. Atualizar Veículo
@@ -190,6 +222,7 @@ const atualizarVeiculo = () => {
 
   ordenarPorPreco();
   console.log("✅ Veículo atualizado!");
+  pausar();
 };
 
 // 5. Remover Veículo
@@ -233,7 +266,7 @@ const removerVeiculo = () => {
     |_______________________________|
     `);
 
-    const opcao = prompt("Escolha uma opção: ");
+    const opcao = prompt("Escolha uma opção: ").trim();
 
     switch (opcao) {
       case "1":
