@@ -198,22 +198,26 @@ const listarVeiculos = () => {
     "\n==================================================================================",
   );
   console.log("--- LISTA DE VEÍCULOS (ORDEM DE PREÇO) ---");
-  listaVeiculos.forEach(
-    ({ id, modelo, marca, ano, cor, preco }) => {
-      console.log(
-        `ID: ${id} | Modelo: ${modelo.toUpperCase()} | Marca: ${marca.toUpperCase()} | Ano: ${ano} | Cor: ${cor.toUpperCase()} | Preço: R$ ${preco.toLocaleString(
-          "pt-BR",
-          {
-            minimumFractionDigits: 2,
-          },
-        )}`,
-      );
-    },
+  // Lista formatada apenas para exibição técnica
+  const tabelaFormatada = listaVeiculos.map(
+    ({ id, modelo, marca, ano, cor, preco }) => ({
+      ID: id,
+      Modelo: modelo.toUpperCase(),
+      Marca: marca.toUpperCase(),
+      Ano: ano,
+      Cor: cor.toUpperCase(),
+      Preço: preco.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
+    }),
   );
-  pausar();
+
+  console.table(tabelaFormatada);
   console.log(
     "==================================================================================\n",
   );
+  pausar();
 };
 
 // 3. Filtrar por Marca
@@ -241,16 +245,24 @@ const filtrarPorMarca = () => {
   console.log(
     `\n--- RESULTADOS PARA: ${busca.toUpperCase()} ---`,
   );
-  filtrados.forEach(({ id, modelo, marca, cor, preco }) => {
-    console.log(
-      `ID: ${id} | Modelo: ${modelo.toUpperCase()} | Marca: ${marca.toUpperCase()} | Cor: ${cor.toUpperCase()} | Preço: R$ ${preco.toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits: 2,
-        },
-      )}`,
-    );
-  });
+  console.log(
+    "\n=========================================================================",
+  );
+  const tabelaFiltrada = filtrados.map(
+    ({ id, modelo, marca, ano, cor, preco }) => ({
+      ID: id,
+      Modelo: modelo.toUpperCase(),
+      Marca: marca.toUpperCase(),
+      Ano: ano,
+      Cor: cor.toUpperCase(),
+      Preço: preco.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
+    }),
+  );
+
+  console.table(tabelaFiltrada);
   console.log(
     "=========================================================================\n",
   );
